@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="column">
+    {% for maullido in maullidos.all|slice:"10" %}
+        <div class="box">
+            {{ maullido.body }}
+            <span class="is-small has-text-grey-light">
+                 ({{maullido.user.username}}, {{ maullido.created_at }})
+            </span>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="column is-one-third">
+    <div class="block">
+        {% if user.is_authenticated %}
+            <a href="{% url 'gateter_app:logout' %}">
+                <button class="button is-link is-light is-fullwidth">
+                    Logout
+                </button>
+            </a>
+        {% else %}
+            <a href="{% url 'gateter_app:login' %}">
+                <button class="button is-link is-light is-fullwidth">
+                    Login
+                </button>
+            </a>
+        {% endif %}
+    </div>
+    <div class="block">
+        <a href="{% url 'gateter_app:profile_list' %} ">
+            <button class="button is-link is-light is-fullwidth">
+                Todos los perfiles
+            </button>
+        </a>
+    </div>
+    <div class="block">
+        <a href="{% url 'gateter_app:profile' request.user.profile.id %} ">
+            <button class="button is-link is-light is-fullwidth">
+                Mi perfil
+            </button>
+        </a>
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button is-info is-hovered is-fullwidth is-normal mt-5"
+                type="submit">Publicar tu maullido
+        </button>
+    </form>
+</div>
+
+{% endblock content %}

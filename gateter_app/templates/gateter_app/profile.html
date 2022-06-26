@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="column">
+
+    <div class="block">
+    <h1 class="title is-1">
+        Los maullidos de {{profile.user.username|upper}}
+    </h1>
+    
+<form method="post">
+    {% csrf_token %}
+    <div class="buttons has-addons">
+        {% if profile in user.profile.follows.all %}
+            <button class="button is-primary is-static">Seguir</button>
+            <button class="button is-warning" name="follow" value="unfollow">Dejar de seguir</button>
+        {% else %}
+            <button class="button is-primary" name="follow" value="follow">Seguir</button>
+            <button class="button is-warning is-static">Dejar de seguir</button>
+        {% endif %}
+    </div>
+</form>
+</div>
+
+<div class="content">
+    {% for maullido in profile.user.maullidos.all reversed %}
+        <div class="box">
+            {{ maullido.body }}
+            <span class="is-small has-text-grey-light">
+                ({{ maullido.created_at }})
+            </span>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+<div class="column is-one-third">
+
+    <div class="block">
+        <a href="{% url 'gateter_app:profile_list' %}">
+            <button class="button is-dark is-outlined is-fullwidth">
+                Todos los perfiles
+            </button>
+        </a>
+    </div>
+
+
+    <div class="block">
+        <h3 class="title is-4">
+            {{profile.user.username}} sigue a:
+        </h3>
+        <div class="content">
+            <ul>
+            {% for following in profile.follows.all %}
+                <li>
+                    <a href="{% url 'gateter_app:profile' following.id %}">
+                        {{ following }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="block">
+        <h3 class="title is-4">
+            {{profile.user.username}} es seguid@ por:
+        </h3>
+        <div class="content">
+            <ul>
+            {% for follower in profile.followed_by.all %}
+                <li>
+                    <a href="{% url 'gateter_app:profile' follower.id %}">
+                        {{ follower }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

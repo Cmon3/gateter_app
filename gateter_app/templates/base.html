@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <title>GATETER</title>
+</head>
+<body>
+    <section>
+        <a href="{% url 'gateter_app:dashboard' %} ">
+        <section class="hero is-small is-link mb-4">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <h1 class="title is-1">GATETER</h1>
+                    <p class="subtitle is-4">
+                        Vamos comparte tus maullidos!
+                    </p>
+                </div>
+            </div>
+        </section>
+        </a>
+    <div class="container">
+        <div class="columns">
+            {% block content %}
+
+            {% endblock content %}
+     </div>
+    </div>
+</body>
+</html>
