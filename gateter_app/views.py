@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.contrib import messages
 from django.urls import reverse
 from .models import Maullido, Profile
@@ -24,23 +24,20 @@ def dashboard(request):
 
 
 def register(request):
-    if request.method == "GET":
-        return render(
-            request, "registration/register.html",
-            {"form": CustomUserCreationForm}
-        )
-    elif request.method == "POST":
+    if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            user.refresh_from_db()
-            user.save()
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             messages.success(request, "Registro exitoso.")
             return redirect(reverse("gateter_app:dashboard"))
         messages.error(request, "El registro no se pudo completar.")
+    else:
+        form = CustomUserCreationForm()
+    return render(
+        request, "registration/register.html",
+        {"form": form}
+    )
 
 
 def profile_list(request):
