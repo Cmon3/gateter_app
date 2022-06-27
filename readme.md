@@ -1,14 +1,14 @@
 # Gateter app
 
-App para compartir tweets o maullidos entre los usuarios
+App para compartir tweets o maullidos entre usuarios
 
 ## Para ejecutar la aplicación localmente
 
-Primeramente proceder a crear un .env file con el secret key de django
-o copiarlo directamente en el campo de SECRET_KEY en el archico de setting.py en el folder
+Primeramente procede a crear un .env file con el secret key de django
+o copiarlo directamente en el campo de SECRET_KEY en el archivo de setting.py en el folder
 social media.
 
-Verificar que se cumplen con los requerimientos del requirements.txt
+Verificar que se cumplen con los requerimientos incluídos en el requirements.txt
 
 Correr el comando python manage.py runserver para inicializar la aplicación y ir 
 al http://localhost:8000/
